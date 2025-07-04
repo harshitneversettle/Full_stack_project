@@ -150,8 +150,9 @@ const FoodCard = ({
             ) : (
               [null]
             )}
+            
             <button
-              className=" bg-yellow-500 p-1.5 text-black text-sm rounded-lg cursor-pointer "
+              className=" bg-yellow-500 p-1.5 text-black text-sm rounded-lg cursor-pointer hover:bg-yellow-600 "
               onClick={cartfunction}
             >
               {button_info}

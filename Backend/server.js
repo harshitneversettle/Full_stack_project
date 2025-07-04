@@ -25,7 +25,7 @@ app.use(
   })
 );
 mongoose.connect(
-  "mongodb+srv://harshityadav:HaLtYVzf9bV1J5ry@cluster0.lt97n.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+  process.env.Mongo_key
 );
 
 // function for logging
