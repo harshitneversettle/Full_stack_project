@@ -3,7 +3,7 @@ import React from "react";
 const Body2 = () => {
   return (
     <div
-      className="bg-black w-full h-screen mt-65 "
+      className="bg-black w-full h-screen mt-35 "
       style={{ backgroundColor: "#f5f5dc" }}
     >
       <div className="heading font-ChristopherDone h-full w-full object-cover relative">
@@ -17,9 +17,10 @@ const Body2 = () => {
           alt=""
           className="absolute pr-6 pt-35 pl-3 rounded-md outline"
         />
-        
       </div>
-      <button className="bg-yellow-500 rounded-full p-3 text-lg outline-6 outline-orange-600 hover:bg-yellow-200 hover:outline-zinc-600 hover:scale-105 duration-200 translate-x-300 -translate-y-23 cursor-pointer">Click for bookings </button>
+      <button className="bg-yellow-500 rounded-full p-3 text-lg outline-6 outline-orange-600 hover:bg-yellow-200 hover:outline-zinc-600 hover:scale-105 duration-200 translate-x-300 -translate-y-23 cursor-pointer">
+        Click for bookings{" "}
+      </button>
     </div>
   );
 };

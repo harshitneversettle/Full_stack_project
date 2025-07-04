@@ -1,29 +1,4 @@
-import axios from "axios";
-import React, { useState } from "react";
-import { useEffect } from "react";
-import { useNavigate } from "react-router";
-
-const AdminFood = () => {
-  const navigate = useNavigate();
-  useEffect(() => {
-    const check_token = async () => {
-      const response = await axios.post(
-        "http://localhost:1504/api/check-token-admin",
-        {},
-        {
-          withCredentials: true,
-        }
-      );
-      console.log(response);
-      if (response.data != "Token is available") {
-        window.alert("No token 😑 , go back intruder");
-        navigate("/admin-login");
-      }
-    };
-    check_token();
-  }, []);
-
-  const [name, setName] = useState("");
+const [name, setName] = useState("");
   const [type, setType] = useState("");
   const [price, setPrice] = useState("");
   const [discount, setDiscount] = useState("");
@@ -33,15 +8,23 @@ const AdminFood = () => {
   async function handlesubmit(e) {
     e.preventDefault();
     try {
-      const response = await axios.post("/api/addFood", {
-        name,
-        type,
-        price,
-        discount,
-        image,
-        about,
-      });
-      alert(response.data);
+      const response = await axios.post(
+        "http://localhost:2000/api/addFood",
+        {
+          name,
+          type,
+          price,
+          discount,
+          image,
+          about,
+        },
+        {
+          withCredentials: true, 
+        }
+      );
+      console.log(response) ;
+     const message = response.data ;
+     window.alert(message) ;
     } catch (error) {
       console.log("An error occurred");
     }
@@ -147,6 +130,3 @@ const AdminFood = () => {
       `}</style>
     </div>
   );
-};
-
-export default AdminFood;

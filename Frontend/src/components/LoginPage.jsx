@@ -10,69 +10,69 @@ const LoginPage = () => {
 
   async function login() {
     try {
-      const response = await axios.post("/login", {
+      const response = await axios.post("/api/login", {
         email,
         password,
       });
-      console.log(response);
+      
       if (response.data == true) {
         window.alert("logged in successfully");
         navigate("/");
       } else {
-        window.alert("bosdike firse try kro ");
+        window.alert("try again");
       }
     } catch (error) {
-      window.alert("login failed");
+      window.alert("login failed , error aaya ");
     }
   }
+
   return (
-    <div className="login flex flex-col items-center justify-center bg-pink-100 w-full h-screen ">
-      <div className="mainlogindiv flex flex-col justify-center items-center outline-solid w-120 m-auto bg-zinc-600 rounded-lg ">
-        <div className="inputdiv flex flex-col w-full m-auto w-50% h-1/2 backdrop-blur rounded-lg ">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-pink-200">
+      <div className="flex flex-col justify-center items-center bg-gray-800 text-white p-8 rounded-2xl shadow-2xl w-96">
+        
+        {/* Input Fields */}
+        <div className="w-full space-y-4">
           <input
             type="text"
-            placeholder="email"
-            className="border-zinc p-3 m-4 bg-white outline-solid rounded-full "
-            name="email "
+            placeholder="Email"
+            className="w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            name="email"
             onChange={(e) => setEmail(e.target.value)}
           />
+
           <input
             type="password"
             placeholder="Password"
-            className="border-zinc p-3 m-4 bg-white outline-solid rounded-full"
+            className="w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
             name="password"
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <div className="buttondiv m-4 flex flex-row justify-between ">
+
+        {/* Buttons */}
+        <div className="mt-6 flex space-x-4">
           <button
-            className="submitbtn text-lg p-3 text-white rounded-full m-4 outline-solid cursor-pointer hover:bg-blue-300 w-20 "
-            style={{ backgroundColor: "#033452" }}
+            className="px-5 py-3 rounded-lg text-white bg-blue-600 hover:bg-blue-500 transition-all duration-300"
             onClick={login}
           >
             Submit
           </button>
+
           <button
-            className="resetbtn bg-blue-500 text-lg p-3 text-white rounded-full m-4 outline-solid cursor-pointer hover:bg-white w-20"
-            style={{ backgroundColor: "#033452" }}
+            className="px-5 py-3 rounded-lg text-white bg-red-500 hover:bg-red-400 transition-all duration-300"
             onClick={() => navigate("/")}
           >
             Home
           </button>
         </div>
 
-        <div className="quotation flex flex-row justify-between w-full  ">
-          <Link
-            to="/admin-login"
-            className="text-white cursor-pointer hover:text-red-600 pl-2"
-          >
-            Admin login ?
+        {/* Links for Admin Login & Signup */}
+        <div className="mt-4 flex justify-between w-full text-sm">
+          <Link to="/admin-login" className="hover:text-red-400 transition-all duration-200">
+            Admin login?
           </Link>
-          <Link
-            to="/sign-Up"
-            className="text-white cursor-pointer hover:text-red-600 pr-2"
-          >
-            Don't have an account ?
+          <Link to="/sign-Up" className="hover:text-red-400 transition-all duration-200">
+            Don't have an account?
           </Link>
         </div>
       </div>

@@ -3,9 +3,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
-const FoodCard = ({ name, price, about, discount, image, type, keyid }) => {
+const FoodCard = ({
+  name,
+  price,
+  about,
+  discount,
+  image,
+  type,
+  heart,
+  button_info,
+}) => {
   const [show, setShow] = useState(false);
   const [favourite, setfavourite] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  if (!isVisible) return null;
 
   function maketrue(e) {
     setShow((prev) => !prev);
@@ -21,36 +32,53 @@ const FoodCard = ({ name, price, about, discount, image, type, keyid }) => {
 
   async function addToFavourite(e) {
     e.preventDefault();
-    const result = await axios.post("http://localhost:3000/favourites", {
+    const result = await axios.post("/api/favourites", {
       name,
       type,
       price,
       discount,
       image,
       about,
+      heart,
+      button_info,
     });
   }
 
   async function deleteFavourite(e) {
     e.preventDefault();
-    const result = await axios.post("http://localhost:3000/delete-favourites", {
+    const result = await axios.post("/api/delete-favourites", {
       name,
     });
-    console.log(result.data);
   }
 
   async function cartfunction(e) {
     e.preventDefault();
-    const result = await axios.post("http://localhost:3000/addtocart", {
-      name: name,
-      unique_key: keyid,
-      price: Number(price),
-      discount: Number(discount),
-    });
-    console.log(result.data);
+    const nameofbutton = e.target.innerText;
+    console.log(name);
+    if (nameofbutton == "Remove from cart") {
+      const response = await axios.post(
+        "/api/removefromcart",
+        {
+          name,
+        },
+        { withCredentials: true }
+      );
+      setIsVisible(false);
+      console.log(response.data);
+    } else {
+      const result = await axios.post("/api/addtocart", {
+        name: name,
+        image: image,
+        about,
+        type,
+        price: Number(price),
+        discount: Number(discount),
+      });
+      console.log(result.data);
+    }
   }
   return (
-    <div className=" p-3">
+    <div className="">
       <div className="maincard bg-black w-65 h-80 rounded-lg m-auto ">
         <div className="comp p-3 align-middle ">
           <div className="image rounded-b-lg">
@@ -78,7 +106,7 @@ const FoodCard = ({ name, price, about, discount, image, type, keyid }) => {
               </div>
             )}
           </div>
-          <div className="info text-white leading-8 p-1.3 mt-2.5 ml-1.5">
+          <div className="info text-white leading-8 p-1.3 mt-2.5 ml-1.5 ">
             <h1 className=""> Name : {name} </h1>
             <h1> Type : {type}</h1>
             <div className="discount flex justify-between">
@@ -88,37 +116,45 @@ const FoodCard = ({ name, price, about, discount, image, type, keyid }) => {
               </h1>
             </div>
           </div>
-          <div className="cart flex justify-between">
-            <button
-              onClick={async (e) => {
-                await handlefavourite(e);
-                if (!favourite) {
-                  await addToFavourite(e);
-                } else {
-                  await deleteFavourite(e);
-                }
-              }}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill={favourite ? "red" : "white"}
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-6 ml-1"
+          <div
+            className={`cart ${
+              heart ? "flex justify-between" : "flex justify-end"
+            }`}
+          >
+            {heart ? (
+              <button
+                onClick={async (e) => {
+                  handlefavourite(e);
+                  if (!favourite) {
+                    await addToFavourite(e);
+                  } else {
+                    await deleteFavourite(e);
+                  }
+                }}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
-                />
-              </svg>
-            </button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill={favourite ? "red" : "white"}
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="size-6 ml-1"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
+                  />
+                </svg>
+              </button>
+            ) : (
+              [null]
+            )}
             <button
               className=" bg-yellow-500 p-1.5 text-black text-sm rounded-lg cursor-pointer "
               onClick={cartfunction}
             >
-              Add to cart <FontAwesomeIcon icon={faCartShopping} />
+              {button_info}
             </button>
           </div>
         </div>

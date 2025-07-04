@@ -2,45 +2,55 @@ import React, { useEffect, useState } from "react";
 import FoodCard from "./FoodCard";
 import axios from "axios";
 
-
-
 const MakeFoodCard = () => {
-  const [foodlist, setfoodlist] = useState([]);
-  const [loading , setloading ] = useState(false) ;
+  const [foodlist, setFoodList] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setloading(true) ;
+    setLoading(true);
     const getlist = async () => {
       try {
-        const response = await axios.get("/foodlist");
-        setfoodlist(response.data);
-        console.log(response.data)
+        const response = await axios.get("/api/foodlist");
+        setFoodList(response.data);
+      
       } catch (error) {
-        console.log("error occured " );
+        console.log("Error occurred");
       }
-    }
-    setloading(false)
+      setLoading(false);
+    };
     getlist();
   }, []);
 
   return (
-    <div className=" grid grid-cols-4 h-full ml-4 mr-8">
-    {loading ? <h1>Data is loading ..... please wait .</h1> : <h1></h1>}
-      {foodlist.map((i) => {
-        console.log(foodlist)
-        return (
-             foodlist.length > 0 ?
-          (<FoodCard
-            key={i._id}
-            name={i.name}
-            price={i.price}
-            about={i.about}
-            type={i.type}
-            discount={i.discount}
-            image={i.image}
-          />) : <h1>No food items available</h1>
-        );
-      })}
+    <div className="flex flex-wrap gap-16">
+      {/* Loading State */}
+      {loading ? (
+        <h1 className="text-xl font-semibold text-gray-700">Data is loading... Please wait.</h1>
+      ) : (
+        <>
+          {/* Food List */}
+          {foodlist.length > 0 ? (
+            foodlist.map((i) => (
+              <FoodCard
+                key={i._id}
+                name={i.name}
+                price={i.price}
+                about={i.about}
+                type={i.type}
+                discount={i.discount}
+                image={i.image}
+                heart = {true}
+                button_info={'Add to cart'}
+                className=""
+              />
+            ))
+          ) : (
+            <h1 className="text-xl font-semibold text-red-500 col-span-full text-center">
+              No food items available
+            </h1>
+          )}
+        </>
+      )}
     </div>
   );
 };
