@@ -25,14 +25,17 @@
 
 ## ✨ Features
 
-- 🧾 User Signup & Login with JWT Auth
-- 🔐 Admin Login with protected access
-- 🍱 Admin can Add Food Items
-- 🛒 Add/Remove Items from Cart
-- ❤️ Add/Remove Items from Favorites
-- 💳 Razorpay Payment Integration
-- 🔒 Protected Routes with Cookies & Tokens
-- 🖥️ Responsive User Interface
+- 🧾 User Signup & Login with JWT Authentication  
+- 🖼️ User can upload profile picture during signup  
+- 🔐 Admin Login with protected access  
+- ✔️ Only Admin can add new products  
+- 🍱 Admin can Add Food Items  
+- 🔍 Filter food products by category/type  
+- 🛒 Add/Remove Items from Cart  
+- ❤️ Add/Remove Items from Favorites  
+- 💳 Razorpay Payment Integration  
+- 🔒 Protected Routes with Cookies & Tokens  
+
 
 ---
 
