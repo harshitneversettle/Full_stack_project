@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "https://seven-spices.vercel.app/",
+    origin: "https://seven-spices.vercel.app",
     credentials: true,
   })
 );
