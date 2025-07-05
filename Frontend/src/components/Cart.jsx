@@ -10,7 +10,7 @@ const Cart = () => {
 
   const handlePayment = async () => {
     const amount = 1;
-    const { data: order } = await axios.post("/api/payment/create-order", {
+    const { data: order } = await axios.post("https://seven-spices.vercel.app/api/payment/create-order", {
       amount,
     });
 
@@ -41,7 +41,7 @@ const Cart = () => {
   useEffect(() => {
     const check_token = async () => {
       const response = await axios.get(
-        "/api/check-token",
+        "https://seven-spices.vercel.app/api/check-token",
         {
           withCredentials: true,
         }
@@ -58,7 +58,7 @@ const Cart = () => {
   useEffect(() => {
     const getcartitems = async () => {
       try {
-        const cartitem = await axios.get("/api/get-cartitems");
+        const cartitem = await axios.get("https://seven-spices.vercel.app/api/get-cartitems");
         setCartList(cartitem.data);
         console.log(cartitem.data);
       } catch (error) {

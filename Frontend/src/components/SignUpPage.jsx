@@ -12,7 +12,7 @@ const SignUpPage = () => {
   async function signup(e) {
     e.preventDefault();
     try {
-      const response = await axios.post("/api/signup", {
+      const response = await axios.post("https://seven-spices.vercel.app/api/signup", {
         username,
         email,
         password,

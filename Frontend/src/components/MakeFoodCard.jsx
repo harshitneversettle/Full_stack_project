@@ -10,7 +10,7 @@ const MakeFoodCard = () => {
     setLoading(true);
     const getlist = async () => {
       try {
-        const response = await axios.get("/api/foodlist");
+        const response = await axios.get("https://seven-spices.vercel.app/api/foodlist");
         setFoodList(response.data);
       
       } catch (error) {

@@ -65,7 +65,7 @@ const Menupage = () => {
   useEffect(() => {
     const check_token = async () => {
       const response = await axios.get(
-        "/api/check-token",
+        "https://seven-spices.vercel.app/api/check-token",
         {
           withCredentials: true,
         }
