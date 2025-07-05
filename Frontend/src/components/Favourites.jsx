@@ -7,7 +7,7 @@ const Favourites = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const check_token = async () => {
-      const response = await axios.get("https://seven-spices-1.onrender.com/api/check-token", {
+      const response = await axios.get("https://seven-spices-q11n.onrender.com/api/check-token", {
         withCredentials: true,
       });
       if (response.data !== "Token is available") {
@@ -21,7 +21,7 @@ const Favourites = () => {
   useEffect(() => {
     const getfavitems = async () => {
       try {
-        const favitem = await axios.get("https://seven-spices-1.onrender.com/api/get-favourites");
+        const favitem = await axios.get("https://seven-spices-q11n.onrender.com/api/get-favourites");
         setfavList(favitem.data);
         console.log(favitem.data);
       } catch (error) {

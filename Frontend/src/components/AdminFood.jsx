@@ -33,7 +33,7 @@ const AdminFood = () => {
   async function handlesubmit(e) {
     e.preventDefault();
     try {
-      const response = await axios.post("https://seven-spices-1.onrender.com/api/addFood", {
+      const response = await axios.post("https://seven-spices-q11n.onrender.com/api/addFood", {
         name,
         type,
         price,

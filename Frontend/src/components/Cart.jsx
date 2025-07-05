@@ -10,7 +10,7 @@ const Cart = () => {
 
   const handlePayment = async () => {
     const amount = 1;
-    const { data: order } = await axios.post("https://seven-spices-1.onrender.com/api/payment/create-order", {
+    const { data: order } = await axios.post("https://seven-spices-q11n.onrender.com/api/payment/create-order", {
       amount,
     });
 
@@ -41,7 +41,7 @@ const Cart = () => {
   useEffect(() => {
     const check_token = async () => {
       const response = await axios.get(
-        "https://seven-spices-1.onrender.com/api/check-token",
+        "https://seven-spices-q11n.onrender.com/api/check-token",
         {
           withCredentials: true,
         }
@@ -58,7 +58,7 @@ const Cart = () => {
   useEffect(() => {
     const getcartitems = async () => {
       try {
-        const cartitem = await axios.get("https://seven-spices-1.onrender.com/api/get-cartitems");
+        const cartitem = await axios.get("https://seven-spices-q11n.onrender.com/api/get-cartitems");
         setCartList(cartitem.data);
         console.log(cartitem.data);
       } catch (error) {

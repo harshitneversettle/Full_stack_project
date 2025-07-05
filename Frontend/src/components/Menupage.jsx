@@ -65,7 +65,7 @@ const Menupage = () => {
   useEffect(() => {
     const check_token = async () => {
       const response = await axios.get(
-        "https://seven-spices-1.onrender.com/api/check-token",
+        "https://seven-spices-q11n.onrender.com/api/check-token",
         {
           withCredentials: true,
         }
