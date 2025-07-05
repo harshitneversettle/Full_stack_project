@@ -162,6 +162,9 @@ app.post("/api/login", async (req, res) => {
   if (isAuthenticated) {
     res.cookie("user_email", emailtoken, {
       maxAge: 1500 * 60 * 1000, // milliseconds me hota hai toh isliye 1000 se mltiply and to convert the resultant into minutes , multipy it by 60
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
     });
     res.send(true);
   } else {
@@ -235,6 +238,9 @@ app.post("/api/admin-login", async (req, res) => {
     const email_token2 = jwt.sign({ email }, jwtpassword);
     res.cookie("admin_email", email_token2, {
       maxAge: 4000 * 60 * 1000,
+      httpOnly: true,
+      secure: true, 
+      sameSite: "None", 
     });
     res.send(true);
   } else {

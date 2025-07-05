@@ -13,7 +13,7 @@ const LoginPage = () => {
       const response = await axios.post("/api/login", {
         email,
         password,
-      });
+      } , {withCredentials:true });
       
       if (response.data == true) {
         window.alert("logged in successfully");
