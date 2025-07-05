@@ -8,7 +8,7 @@ const AdminFood = () => {
   useEffect(() => {
     const check_token = async () => {
       const response = await axios.post(
-        "https://seven-spices.vercel.app/api/check-token-admin",
+        "https://seven-spices-1.onrender.com/api/check-token-admin",
         {},
         {
           withCredentials: true,
@@ -33,7 +33,7 @@ const AdminFood = () => {
   async function handlesubmit(e) {
     e.preventDefault();
     try {
-      const response = await axios.post("https://seven-spices.vercel.app/api/addFood", {
+      const response = await axios.post("https://seven-spices-1.onrender.com/api/addFood", {
         name,
         type,
         price,

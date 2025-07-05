@@ -55,7 +55,7 @@ const FoodCard = ({
     console.log(name);
     if (nameofbutton == "Remove from cart") {
       const response = await axios.post(
-        "https://seven-spices.vercel.app/api/removefromcart",
+        "https://seven-spices-1.onrender.com/api/removefromcart",
         {
           name,
         },
@@ -65,12 +65,12 @@ const FoodCard = ({
       console.log(response.data);
     } 
     if(nameofbutton=="Remove favourites"){
-      const response = await axios.post("https://seven-spices.vercel.app/api/removefavourite" , {name} ,{withCredentials:true})
+      const response = await axios.post("https://seven-spices-1.onrender.com/api/removefavourite" , {name} ,{withCredentials:true})
       setIsVisible(false)
       console.log(response.data)
     }
     else {
-      const result = await axios.post("https://seven-spices.vercel.app/api/addtocart", {
+      const result = await axios.post("https://seven-spices-1.onrender.com/api/addtocart", {
         name: name,
         image: image,
         about,

@@ -10,7 +10,7 @@ const LoginPage = () => {
 
   async function login() {
     try {
-      const response = await axios.post("https://seven-spices.vercel.app/api/login", {
+      const response = await axios.post("https://seven-spices-1.onrender.com/api/login", {
         email,
         password,
       } , {withCredentials:true });
