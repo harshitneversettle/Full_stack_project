@@ -65,7 +65,7 @@ const Menupage = () => {
   useEffect(() => {
     const check_token = async () => {
       const response = await axios.get(
-        "http://localhost:2000/api/check-token",
+        "/api/check-token",
         {
           withCredentials: true,
         }

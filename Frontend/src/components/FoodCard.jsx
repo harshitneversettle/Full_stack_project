@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
 const FoodCard = ({
@@ -65,7 +63,13 @@ const FoodCard = ({
       );
       setIsVisible(false);
       console.log(response.data);
-    } else {
+    } 
+    if(nameofbutton=="Remove favourites"){
+      const response = await axios.post("/api/removefavourite" , {name} ,{withCredentials:true})
+      setIsVisible(false)
+      console.log(response.data)
+    }
+    else {
       const result = await axios.post("/api/addtocart", {
         name: name,
         image: image,

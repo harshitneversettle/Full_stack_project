@@ -20,13 +20,11 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://seven-spices.vercel.app/",
     credentials: true,
   })
 );
-mongoose.connect(
-  process.env.Mongo_key
-);
+mongoose.connect(process.env.Mongo_key);
 
 // function for logging
 async function check_account(email, password) {
@@ -346,6 +344,18 @@ app.post("/api/removefromcart", async (req, res) => {
     if (name) {
       console.log(await Cart.find({ name }));
       await Cart.deleteOne({ name, user_email: decoded_email });
+      res.send(decoded_email);
+    }
+  }
+});
+
+app.post("/api/removefavourite", async (req, res) => {
+  const name = req.body.name;
+  const token = req.cookies.user_email;
+  if (token) {
+    const decoded_email = jwt.decode(token).email;
+    if (name) {
+      await Favourites.deleteOne({ name, user_email: decoded_email });
       res.send(decoded_email);
     }
   }
