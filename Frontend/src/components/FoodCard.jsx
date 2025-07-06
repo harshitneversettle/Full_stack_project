@@ -30,7 +30,7 @@ const FoodCard = ({
 
   async function addToFavourite(e) {
     e.preventDefault();
-    const result = await axios.post("/api/favourites", {
+    const result = await axios.post("https://seven-spices-q11n.onrender.com/api/favourites", {
       name,
       type,
       price,
@@ -44,7 +44,7 @@ const FoodCard = ({
 
   async function deleteFavourite(e) {
     e.preventDefault();
-    const result = await axios.post("/api/delete-favourites", {
+    const result = await axios.post("https://seven-spices-q11n.onrender.com/api/delete-favourites", {
       name,
     });
   }
@@ -72,12 +72,12 @@ const FoodCard = ({
     else {
       const result = await axios.post("https://seven-spices-q11n.onrender.com/api/addtocart", {
         name: name,
-        image: image,
+        image: image, 
         about,
         type,
         price: Number(price),
         discount: Number(discount),
-      });
+      } , {withCredentials: true});
       console.log(result.data);
     }
   }

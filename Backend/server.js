@@ -253,38 +253,38 @@ app.get("/api/foodlist", async (req, res) => {
   res.send(fooditem);
 });
 
-app.post("/api/addtocart", (req, res) => {
-  try {
-    const email_fetched = req.cookies.user_email;
-    const decoded_email = jwt.decode(email_fetched);
-    const name = req.body.name;
-    const Price = req.body.price;
-    const Discount = req.body.discount;
-    const image = req.body.image;
-    const type = req.body.type;
-    const about = req.body.about;
-    const user_email = decoded_email.email;
-    console.log(name);
-    const Total_price =
-      Number(Price) - Number(Price) * (Number(Discount) / 100);
+	app.post("/api/addtocart", (req, res) => {
+	try {
+		const email_fetched = req.cookies.user_email;
+		const decoded_email = jwt.decode(email_fetched);
+		const name = req.body.name;
+		const Price = req.body.price;
+		const Discount = req.body.discount;
+		const image = req.body.image;
+		const type = req.body.type;
+		const about = req.body.about;
+		const user_email = decoded_email.email;
+		console.log(name);
+		const Total_price =
+		Number(Price) - Number(Price) * (Number(Discount) / 100);
 
-    const newItem = new Cart({
-      name,
-      Price,
-      type,
-      Discount,
-      image,
-      about,
-      Total_price,
-      user_email,
-    });
+		const newItem = new Cart({
+		name,														
+		Price,
+		type,
+		Discount,
+		image,
+		about,
+		Total_price,
+		user_email,
+		});
 
-    newItem.save();
-    res.send("added to cart ");
-  } catch (error) {
-    res.send("error");
-  }
-});
+		newItem.save();
+		res.send("added to cart ");
+	} catch (error) {
+		res.send("error");
+	}
+	});
 
 app.post("/api/favourites", (req, res) => {
   const email_fetched = req.cookies.user_email;

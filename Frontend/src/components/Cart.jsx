@@ -12,7 +12,7 @@ const Cart = () => {
     const amount = 1;
     const { data: order } = await axios.post("https://seven-spices-q11n.onrender.com/api/payment/create-order", {
       amount,
-    });
+    } , {withCredentials : true });
 
     const options = {
       key: "rzp_test_3aZ7gfexPtg6GF",

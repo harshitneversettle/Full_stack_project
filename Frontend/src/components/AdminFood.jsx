@@ -40,7 +40,7 @@ const AdminFood = () => {
         discount,
         image,
         about,
-      });
+      } , {withCredentials : true });
       alert(response.data);
     } catch (error) {
       console.log("An error occurred");
