@@ -9,15 +9,13 @@ const { configDotenv } = require("dotenv");
 require("dotenv").config();
 
 const app = express();
-const port = process.env.port || 1504;
+const PORT = process.env.PORT || 1504;
 const jwtpassword = "Titan1234";
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
   key_secret: process.env.RAZORPAY_KEY_SECRET,
-
-
 });
-
+app.set("trust proxy", 1);
 app.use(express.json());
 app.use(cookieParser());
 app.use(
@@ -26,7 +24,7 @@ app.use(
     credentials: true,
   })
 );
-mongoose.connect(process.env.Mongo_key);
+mongoose.connect(process.env.MONGO_KEY);
 
 // function for logging
 async function check_account(email, password) {
@@ -181,7 +179,7 @@ app.post("/api/addFood", async (req, res) => {
   if (email_token) {
     const cookie_email = jwt.verify(email_token, jwtpassword);
     const parsed_email = await Admin.findOne({ email: cookie_email.email });
-    if (parsed_email.email === cookie_email.email) {
+    if (parsed_email.email == cookie_email.email) {
       const name = req.body.name;
       const type = req.body.type;
       const price = req.body.price;
@@ -198,7 +196,6 @@ app.post("/api/addFood", async (req, res) => {
           image,
           about,
         });
-
         try {
           await newFood.save();
           console.log("done");
@@ -397,7 +394,7 @@ app.post("/api/payment/create-order", async (req, res) => {
   }
 });
 
-// listning the port
-app.listen(port, () => {
-  console.log(`daddy , server is up at ${port}`);
+// listning the PORT
+app.listen(PORT, () => {
+  console.log(`daddy , server is up at ${PORT}`);
 });
