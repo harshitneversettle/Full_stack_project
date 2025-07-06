@@ -162,7 +162,9 @@ app.post("/api/login", async (req, res) => {
   if (isAuthenticated) {
     res.cookie("user_email", emailtoken, {
       maxAge: 1500 * 60 * 1000, // milliseconds me hota hai toh isliye 1000 se mltiply and to convert the resultant into minutes , multipy it by 60
-      
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
     });
     res.send(true);
   } else {
@@ -236,6 +238,9 @@ app.post("/api/admin-login", async (req, res) => {
     const email_token2 = jwt.sign({ email }, jwtpassword);
     res.cookie("admin_email", email_token2, {
       maxAge: 4000 * 60 * 1000,
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
     });
     res.send(true);
   } else {
@@ -248,38 +253,38 @@ app.get("/api/foodlist", async (req, res) => {
   res.send(fooditem);
 });
 
-	app.post("/api/addtocart", (req, res) => {
-	try {
-		const email_fetched = req.cookies.user_email;
-		const decoded_email = jwt.decode(email_fetched);
-		const name = req.body.name;
-		const Price = req.body.price;
-		const Discount = req.body.discount;
-		const image = req.body.image;
-		const type = req.body.type;
-		const about = req.body.about;
-		const user_email = decoded_email.email;
-		console.log(name);
-		const Total_price =
-		Number(Price) - Number(Price) * (Number(Discount) / 100);
+app.post("/api/addtocart", (req, res) => {
+  try {
+    const email_fetched = req.cookies.user_email;
+    const decoded_email = jwt.decode(email_fetched);
+    const name = req.body.name;
+    const Price = req.body.price;
+    const Discount = req.body.discount;
+    const image = req.body.image;
+    const type = req.body.type;
+    const about = req.body.about;
+    const user_email = decoded_email.email;
+    console.log(name);
+    const Total_price =
+      Number(Price) - Number(Price) * (Number(Discount) / 100);
 
-		const newItem = new Cart({
-		name,														
-		Price,
-		type,
-		Discount,
-		image,
-		about,
-		Total_price,
-		user_email,
-		});
+    const newItem = new Cart({
+      name,
+      Price,
+      type,
+      Discount,
+      image,
+      about,
+      Total_price,
+      user_email,
+    });
 
-		newItem.save();
-		res.send("added to cart ");
-	} catch (error) {
-		res.send("error");
-	}
-	});
+    newItem.save();
+    res.send("added to cart ");
+  } catch (error) {
+    res.send("error");
+  }
+});
 
 app.post("/api/favourites", (req, res) => {
   const email_fetched = req.cookies.user_email;
@@ -332,7 +337,7 @@ app.get("/api/get-cartitems", async (req, res) => {
     const decoded_email = jwt.decode(cookie_email);
     const email = decoded_email.email;
     const CartList = await Cart.find({ user_email: email });
-    console.log(CartList)
+    console.log(CartList);
     res.send(CartList);
   }
 });
