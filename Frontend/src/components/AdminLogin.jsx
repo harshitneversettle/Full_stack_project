@@ -9,7 +9,7 @@ const AdminLogin = () => {
 
   async function login() {
     try {
-      const response = await axios.post("http://localhost:1504/api/admin-login", {
+      const response = await axios.post("https://seven-spices-1.onrender.com/api/admin-login", {
         email,
         password,
       } , {

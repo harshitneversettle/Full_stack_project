@@ -10,7 +10,7 @@ const MakeFoodCard = () => {
     setLoading(true);
     const getlist = async () => {
       try {
-        const response = await axios.get("http://localhost:1504/api/foodlist" , {withCredentials : true });
+        const response = await axios.get("https://seven-spices-1.onrender.com/api/foodlist" , {withCredentials : true });
         setFoodList(response.data);
       
       } catch (error) {
