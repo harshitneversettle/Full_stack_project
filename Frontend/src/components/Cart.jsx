@@ -1,24 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import FoodCard from "./FoodCard";
 import axios from "axios";
 import { Link, useNavigate } from "react-router";
 
 const Cart = () => {
   const navigate = useNavigate();
-  let [order_total, setorder_total] = useState(0);
-  let after_discount = 0;
 
-  const handlePayment = async () => {
-    const amount = 1;
-    const { data: order } = await axios.post("https://seven-spices-q11n.onrender.com/api/payment/create-order", {
-      amount,
+  const handlePayment = async (amount) => {
+    //const amount = 1 ;
+    const { data: order } = await axios.post("http://localhost:1504/api/payment/create-order", {
+      amount : Math.round(amount),
     } , {withCredentials : true });
 
     const options = {
       key: "rzp_test_3aZ7gfexPtg6GF",
       amount: order.amount,
       currency: "INR",
-      name: "My Store",
+      name: "Seven Spices",
       description: "Food Order Payment",
       order_id: order.id,
       handler: function (response) {
@@ -27,7 +25,7 @@ const Cart = () => {
       },
       prefill: {
         name: "Harshit Yadav",
-        email: "harshit@example.com",
+        email: "harshit@mits.com",
       },
       theme: {
         color: "#F59E0B",
@@ -41,7 +39,7 @@ const Cart = () => {
   useEffect(() => {
     const check_token = async () => {
       const response = await axios.get(
-        "https://seven-spices-q11n.onrender.com/api/check-token",
+        "http://localhost:1504/api/check-token",
         {
           withCredentials: true,
         }
@@ -55,10 +53,11 @@ const Cart = () => {
   }, []);
 
   const [Cartlist, setCartList] = useState([]);
+
   useEffect(() => {
     const getcartitems = async () => {
       try {
-        const cartitem = await axios.get("https://seven-spices-q11n.onrender.com/api/get-cartitems");
+        const cartitem = await axios.get("http://localhost:1504/api/get-cartitems" , {withCredentials:true});
         setCartList(cartitem.data);
         console.log(cartitem.data);
       } catch (error) {
@@ -67,17 +66,21 @@ const Cart = () => {
     };
     getcartitems();
   }, []);
-
-  {
-    Cartlist?.map((i) => (order_total += Number(i.Total_price)));
-  }
-  {
+  
+  const order_total = (useMemo(() =>{
+    let total = 0;
+    Cartlist?.map((i) => (total += Number(i.Total_price)));
+    return total ;
+  } , [Cartlist]))
+  const after_discount = useMemo(() =>{
+    let total = 0 ;
     Cartlist?.map(
       (i) =>
-        (after_discount +=
+        (total +=
           Number(i.Total_price) - Number((i.Total_price * i.Discount) / 100))
     );
-  }
+    return total ;
+  },[Cartlist])
 
   return (
     <div className="justify-between h-screen bg-pink-100">
@@ -102,7 +105,7 @@ const Cart = () => {
                       type={i.type}
                       discount={i.Discount}
                       image={i.image}
-                      button_info={"Remove from cart "}
+                      button_info={'Remove from cart'}
                       className=""
                     />
                   </>

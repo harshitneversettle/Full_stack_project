@@ -10,7 +10,7 @@ const MakeFoodCard = () => {
     setLoading(true);
     const getlist = async () => {
       try {
-        const response = await axios.get("https://seven-spices-q11n.onrender.com/api/foodlist" , {withCredentials : true });
+        const response = await axios.get("http://localhost:1504/api/foodlist" , {withCredentials : true });
         setFoodList(response.data);
       
       } catch (error) {
@@ -23,7 +23,6 @@ const MakeFoodCard = () => {
 
   return (
     <div className="flex flex-wrap gap-16">
-      {/* Loading State */}
       {loading ? (
         <h1 className="text-xl font-semibold text-gray-700">Data is loading... Please wait.</h1>
       ) : (

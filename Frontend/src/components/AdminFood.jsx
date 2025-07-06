@@ -8,7 +8,7 @@ const AdminFood = () => {
   useEffect(() => {
     const check_token = async () => {
       const response = await axios.post(
-        "https://seven-spices-1.onrender.com/api/check-token-admin",
+        "http://localhost:1504/api/check-token-admin",
         {},
         {
           withCredentials: true,

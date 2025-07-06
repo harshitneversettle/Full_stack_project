@@ -10,7 +10,7 @@ const LoginPage = () => {
 
   async function login() {
     try {
-      const response = await axios.post("https://seven-spices-q11n.onrender.com/api/login", {
+      const response = await axios.post("http://localhost:1504/api/login", {
         email,
         password,
       } , {withCredentials:true });

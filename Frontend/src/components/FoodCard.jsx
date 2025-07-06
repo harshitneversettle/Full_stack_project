@@ -30,7 +30,7 @@ const FoodCard = ({
 
   async function addToFavourite(e) {
     e.preventDefault();
-    const result = await axios.post("https://seven-spices-q11n.onrender.com/api/favourites", {
+    const result = await axios.post("http://localhost:1504/api/favourites", {
       name,
       type,
       price,
@@ -39,14 +39,14 @@ const FoodCard = ({
       about,
       heart,
       button_info,
-    });
+    } , {withCredentials:true});
   }
 
   async function deleteFavourite(e) {
     e.preventDefault();
-    const result = await axios.post("https://seven-spices-q11n.onrender.com/api/delete-favourites", {
+    const result = await axios.post("http://localhost:1504/api/delete-favourites", {
       name,
-    });
+    } , {withCredentials: true});
   }
 
   async function cartfunction(e) {
@@ -55,7 +55,7 @@ const FoodCard = ({
     console.log(name);
     if (nameofbutton == "Remove from cart") {
       const response = await axios.post(
-        "https://seven-spices-q11n.onrender.com/api/removefromcart",
+        "http://localhost:1504/api/removefromcart",
         {
           name,
         },
@@ -63,14 +63,12 @@ const FoodCard = ({
       );
       setIsVisible(false);
       console.log(response.data);
-    } 
-    if(nameofbutton=="Remove favourites"){
-      const response = await axios.post("https://seven-spices-q11n.onrender.com/api/removefavourite" , {name} ,{withCredentials:true})
+    }else if(nameofbutton=="Remove favourites"){
+      const response = await axios.post("http://localhost:1504/api/removefavourite" , {name} ,{withCredentials:true})
       setIsVisible(false)
       console.log(response.data)
-    }
-    else {
-      const result = await axios.post("https://seven-spices-q11n.onrender.com/api/addtocart", {
+    } else {
+      const result = await axios.post("http://localhost:1504/api/addtocart", {
         name: name,
         image: image, 
         about,
