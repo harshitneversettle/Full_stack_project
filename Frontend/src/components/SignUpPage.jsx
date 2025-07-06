@@ -12,7 +12,7 @@ const SignUpPage = () => {
   async function signup(e) {
     e.preventDefault();
     try {
-      const response = await axios.post("https://seven-spices-1.onrender.com/api/signup", {
+      const response = await axios.post("http://localhost:1504/api/signup", {
         username,
         email,
         password,

@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "https://seven-spices.vercel.app",
+    origin: "http://localhost:5173",
     credentials: true,
   })
 );
@@ -42,6 +42,7 @@ async function check_account(email, password) {
 // function for admin authorization
 async function check_account_admin(email, password) {
   const user = await Admin.findOne({ email: email });
+  console.log(user)
   if (user) {
     const ans = await bcrypt.compare(password.toString(), user.password);
     if (ans) {
@@ -162,9 +163,7 @@ app.post("/api/login", async (req, res) => {
   if (isAuthenticated) {
     res.cookie("user_email", emailtoken, {
       maxAge: 1500 * 60 * 1000, // milliseconds me hota hai toh isliye 1000 se mltiply and to convert the resultant into minutes , multipy it by 60
-      httpOnly: true,
-      secure: true,
-      sameSite: "None",
+      
     });
     res.send(true);
   } else {
@@ -176,6 +175,7 @@ app.post("/api/login", async (req, res) => {
 
 app.post("/api/addFood", async (req, res) => {
   const email_token = req.cookies.admin_email;
+  console.log("ejnjn")
   if (email_token) {
     const cookie_email = jwt.verify(email_token, jwtpassword);
     const parsed_email = await Admin.findOne({ email: cookie_email.email });
@@ -241,21 +241,20 @@ app.get("/api/check-token-admin", (req, res) => {
 app.post("/api/admin-login", async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
+  console.log(password)
   const isAuthenticated = await check_account_admin(email, password);
+  console.log(isAuthenticated)
   if (isAuthenticated) {
     const email_token2 = jwt.sign({ email }, jwtpassword);
     res.cookie("admin_email", email_token2, {
       maxAge: 4000 * 60 * 1000,
-      httpOnly: true,
-      secure: true,
-      sameSite: "None",
     });
     res.send(true);
   } else {
     res.send(false);
   }
 });
-
+   
 app.get("/api/foodlist", async (req, res) => {
   const fooditem = await Food.find();
   res.send(fooditem);

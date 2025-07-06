@@ -9,18 +9,18 @@ const AdminFood = () => {
 
   useEffect(() => {
     const data = async () =>{
-      const response = await axios.get("https://seven-spices-1.onrender.com/api/check-token-admin" , {withCredentials : true })
+      const response = await axios.get("http://localhost:1504/api/check-token-admin" , {withCredentials : true })
       if(response.data != "Token is available" ){
         navigate("/admin-login")
       }
     }
     data() ;
   } , [])
-  
+
   useEffect(() => {
     const check_token = async () => {
       const response = await axios.post(
-        "https://seven-spices-1.onrender.com/api/check-token-admin",
+        "http://localhost:1504/api/check-token-admin",
         {},
         {
           withCredentials: true,
@@ -45,7 +45,7 @@ const AdminFood = () => {
   async function handlesubmit(e) {
     e.preventDefault();
     try {
-      const response = await axios.post("https://seven-spices-q11n.onrender.com/api/addFood", {
+      const response = await axios.post("http://localhost:1504/api/addFood", {
         name,
         type,
         price,
