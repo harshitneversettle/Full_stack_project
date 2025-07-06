@@ -1,10 +1,22 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { use } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 
 const AdminFood = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const data = async () =>{
+      const response = await axios.get("https://seven-spices-1.onrender.com/api/check-token-admin" , {withCredentials : true })
+      if(response.data != "Token is available" ){
+        navigate("/admin-login")
+      }
+    }
+    data() ;
+  } , [])
+  
   useEffect(() => {
     const check_token = async () => {
       const response = await axios.post(

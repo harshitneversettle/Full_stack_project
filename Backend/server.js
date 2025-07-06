@@ -14,6 +14,8 @@ const jwtpassword = "Titan1234";
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
   key_secret: process.env.RAZORPAY_KEY_SECRET,
+
+
 });
 
 app.use(express.json());
@@ -229,6 +231,15 @@ app.get("/api/check-token", (req, res) => {
     res.send("No cookie");
   }
 });
+app.get("/api/check-token-admin", (req, res) => {
+  const admin_cookie = req.cookies.admin_email;
+  if (admin_cookie) {
+    res.send("Token is available");
+  } else {
+    res.send("No cookie");
+  }
+});
+
 // admin loggin route
 app.post("/api/admin-login", async (req, res) => {
   const email = req.body.email;
