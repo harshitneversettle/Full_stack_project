@@ -9,7 +9,7 @@
       const handlePayment = async (amount) => {
         //const amount = 1 ;
         const { data: order } = await axios.post("http://localhost:1504/api/payment/create-order", {
-          amount : Math.round(amount *100 ),
+          amount : Math.round(amount * 100),
         } , {withCredentials : true });
 
       const options = {
@@ -23,7 +23,7 @@
           alert("Payment Successful 🎉");
           console.log(response);
         },
-        prefill: {
+        prefill: {  
           name: "Harshit Yadav",
           email: "harshit@mits.com",
         },

@@ -175,7 +175,6 @@ app.post("/api/login", async (req, res) => {
 
 app.post("/api/addFood", async (req, res) => {
   const email_token = req.cookies.admin_email;
-  console.log("ejnjn")
   if (email_token) {
     const cookie_email = jwt.verify(email_token, jwtpassword);
     const parsed_email = await Admin.findOne({ email: cookie_email.email });
@@ -380,7 +379,7 @@ app.get("/ping", (req, res) => {
 app.post("/api/payment/create-order", async (req, res) => {
   const { amount } = req.body;
   const options = {
-    amount: amount * 100,
+    amount: Math.round(amount),
     currency: "INR",
     receipt: "order_rcptid_11",
   };
